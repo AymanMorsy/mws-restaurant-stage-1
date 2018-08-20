@@ -22,7 +22,7 @@ initMap = () => {
         scrollWheelZoom: false
       });
       L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.jpg70?access_token={mapboxToken}', {
-        mapboxToken: '<your MAPBOX API KEY HERE>',
+        mapboxToken: 'pk.eyJ1IjoiYXltYW5tb3JzeSIsImEiOiJjamtreTMycHYwNGliM3dxaTJyZGM0MTBsIn0.cPKlysVjVJRHUhBIVaKWBw',
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -80,14 +80,16 @@ fetchRestaurantFromURL = (callback) => {
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
+  console.log(restaurant);
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
-
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img'
+  // adding alt attribute 
+  image.alt = restaurant.name + ' Restaurant';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
 
   const cuisine = document.getElementById('restaurant-cuisine');
@@ -149,14 +151,15 @@ fillReviewsHTML = (reviews = self.restaurant.reviews) => {
 createReviewHTML = (review) => {
   const li = document.createElement('li');
   const name = document.createElement('p');
-  name.innerHTML = review.name;
+  name.innerHTML = 'Name : '+review.name;
   li.appendChild(name);
-
+  
   const date = document.createElement('p');
-  date.innerHTML = review.date;
+  date.innerHTML = 'Date : '+review.date;
   li.appendChild(date);
-
+  
   const rating = document.createElement('p');
+  rating.className = 'rev-rate';
   rating.innerHTML = `Rating: ${review.rating}`;
   li.appendChild(rating);
 
